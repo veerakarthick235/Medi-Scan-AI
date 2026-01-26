@@ -69,6 +69,47 @@ Combines **text + image + audio** to produce:
 
 ---
 
+### Project Structure
+mediscan-ai/
+├── app/                           # Next.js frontend
+│   ├── page.tsx                   # Main triage interface
+│   ├── layout.tsx                 # Root layout
+│   ├── globals.css                # Design tokens & styling
+│   └── api/                       # API routes (optional)
+│
+├── components/                    # React components
+│   ├── Header.tsx                 # Application header
+│   ├── TriageForm.tsx             # Multimodal input form
+│   ├── TriageResults.tsx          # Assessment results display
+│   ├── PatientHistory.tsx         # Patient assessment history
+│   └── ui/                        # shadcn/ui components
+│
+├── backend/                       # Python FastAPI backend
+│   ├── app/
+│   │   ├── main.py                # FastAPI application
+│   │   ├── api/
+│   │   │   └── routes.py          # API endpoints
+│   │   ├── processors/
+│   │   │   ├── image_processor.py # ResNet-50 image analysis
+│   │   │   └── audio_processor.py # Librosa audio analysis
+│   │   ├── models/
+│   │   │   ├── llm_engine.py      # Ollama/LangChain LLM
+│   │   │   └── triage_scorer.py   # Urgency assessment logic
+│   │   ├── knowledge/
+│   │   │   └── vector_db.py       # Medical knowledge base
+│   │   └── utils/
+│   │       ├── config.py          # Configuration
+│   │       └── logging.py         # Logging setup
+│   └── requirements.txt           # Python dependencies
+│
+├── scripts/                       # Utility scripts
+│   ├── setup.sh                   # Environment setup
+│   ├── run_backend.sh             # Start FastAPI server
+│   └── download_models.sh         # Download pre-trained models
+│
+├── MEDISCAN_ARCHITECTURE.md       # Detailed architecture document
+└── IMPLEMENTATION_GUIDE.md        # This file
+
 ## 📂 Architecture Snapshot
 
 ```
