@@ -1,8 +1,16 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { AlertCircle, CheckCircle, Clock } from 'lucide-react';
+import { AlertCircle, CheckCircle, Clock, Download } from 'lucide-react';
+import {
+  exportAssessmentAsCSV,
+  exportAssessmentAsJSON,
+  exportAssessmentAsText,
+  printHTMLReport,
+} from '@/lib/export';
+import type { Assessment } from '@/lib/db';
 
 interface TriageResult {
   preliminary_diagnosis: string;
@@ -19,49 +27,44 @@ interface TriageResultsProps {
 }
 
 export function TriageResults({ result, onNewAssessment }: TriageResultsProps) {
+  const [showExportMenu, setShowExportMenu] = useState(false);
+
+  const assessment: Assessment = {
+    id: `assessment_${Date.now()}`,
+    patientName: 'Patient',
+    date: new Date().toISOString(),
+    symptoms: '',
+    diagnosis: result.preliminary_diagnosis,
+    urgencyLevel: result.urgency_level,
+    confidenceScore: result.confidence_score,
+    reasoning: result.reasoning,
+    recommendedActions: result.recommended_actions,
+    processingTime: result.processing_time,
+  };
+
+  const handleExportCSV = () => {
+    exportAssessmentAsCSV(assessment);
+    setShowExportMenu(false);
+  };
+
+  const handleExportJSON = () => {
+    exportAssessmentAsJSON(assessment);
+    setShowExportMenu(false);
+  };
+
+  const handleExportText = () => {
+    exportAssessmentAsText(assessment);
+    setShowExportMenu(false);
+  };
+
+  const handlePrintHTML = () => {
+    printHTMLReport(assessment);
+    setShowExportMenu(false);
+  };
+
   const handleSaveAndPrint = () => {
-    // Generate a text version of the report
-    const reportContent = `
-MEDISCAN AI - TRIAGE ASSESSMENT REPORT
-Generated: ${new Date().toLocaleString()}
-=====================================
-
-URGENCY LEVEL: ${result.urgency_level}
-Confidence Score: ${(result.confidence_score * 100).toFixed(0)}%
-
-PRELIMINARY DIAGNOSIS:
-${result.preliminary_diagnosis}
-
-CLINICAL REASONING:
-${result.reasoning}
-
-RECOMMENDED ACTIONS:
-${result.recommended_actions.map((action, i) => `${i + 1}. ${action}`).join('\n')}
-
-Processing Time: ${result.processing_time.toFixed(2)}s
-
-=====================================
-CLINICAL DISCLAIMER:
-This assessment is a preliminary AI-assisted tool and should not replace clinical
-judgment by qualified healthcare professionals. Always refer to a licensed physician
-for definitive diagnosis and treatment decisions.
-    `;
-
-    // Create a blob and download
-    const blob = new Blob([reportContent], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `MediScan_Assessment_${new Date().getTime()}.txt`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-
-    // Trigger print dialog
-    setTimeout(() => {
-      window.print();
-    }, 100);
+    // Placeholder for handleSaveAndPrint functionality
+    console.log('Save and Print functionality not implemented');
   };
 
   const getUrgencyStyles = (level: string) => {
@@ -185,13 +188,44 @@ for definitive diagnosis and treatment decisions.
         >
           New Assessment
         </Button>
-        <Button
-          onClick={handleSaveAndPrint}
-          variant="secondary"
-          className="flex-1 py-6 text-base font-semibold"
-        >
-          Save & Print
-        </Button>
+        <div className="relative flex-1">
+          <Button
+            onClick={() => setShowExportMenu(!showExportMenu)}
+            variant="secondary"
+            className="flex-1 py-6 text-base font-semibold"
+          >
+            <Download className="mr-2 h-4 w-4" />
+            Save & Export
+          </Button>
+          {showExportMenu && (
+            <div className="absolute right-0 top-full z-10 mt-2 w-48 rounded-lg border border-border bg-card shadow-lg">
+              <button
+                onClick={handlePrintHTML}
+                className="block w-full px-4 py-2 text-left text-sm hover:bg-muted"
+              >
+                Print as PDF
+              </button>
+              <button
+                onClick={handleExportText}
+                className="block w-full px-4 py-2 text-left text-sm hover:bg-muted"
+              >
+                Export as Text
+              </button>
+              <button
+                onClick={handleExportCSV}
+                className="block w-full px-4 py-2 text-left text-sm hover:bg-muted"
+              >
+                Export as CSV
+              </button>
+              <button
+                onClick={handleExportJSON}
+                className="block w-full px-4 py-2 text-left text-sm hover:bg-muted"
+              >
+                Export as JSON
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Disclaimer */}
