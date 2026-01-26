@@ -1,84 +1,89 @@
 # 🏥 MediScan AI  
-**Privacy-First Multimodal AI Triage for Rural Clinics**
+### Privacy-First Multimodal AI Triage for Rural Clinics
 
-⭐ **Local AI. Zero Cloud. Real Clinical Impact.**
+⭐ **Local AI · Zero Cloud · Real-World Healthcare Impact**
 
-MediScan AI is a **privacy-first, multimodal medical triage assistant** designed for rural and resource-limited clinics.  
-It helps healthcare workers perform **rapid initial patient assessment** using **text symptoms, medical images, and cough audio**, all processed **locally on the device**.
+MediScan AI is a **privacy-first, multimodal medical triage application** built to assist **rural and resource-limited clinics**. It performs **initial patient triage** using **text symptoms, medical images, and cough audio recordings**, with **all processing done locally**—no cloud, no data leakage.
 
-🚨 Built for environments where **internet access, specialists, and time are limited**.
-
----
-
-## 🚀 Why MediScan AI Matters
-
-- 🌍 **Rural-first healthcare**
-- 🔒 **100% local inference** (no cloud, no APIs)
-- 🧠 **Multimodal AI reasoning**
-- ⚡ **Fast triage support**
-- 👨‍⚕️ **Clinician-friendly output**
-
-This project demonstrates **real-world AI system design**, not just models.
+> Designed for environments where **internet access, specialists, and time are limited**.
 
 ---
 
-## ✨ Key Capabilities
+## 🚀 Why MediScan AI?
 
-### 🧾 Symptom Intelligence
-- Free-text patient symptoms & medical history  
-- Structured clinical intake  
+Most healthcare AI tools depend on cloud APIs.  
+That makes them **unusable** or **unsafe** in rural clinics.
 
-### 🖼️ Medical Image Processing
-- Upload rashes / wounds  
-- Local preprocessing & inference pipeline  
+**MediScan AI is different:**
 
-### 🎙️ Audio-Based Cough Analysis
-- Browser-based recording  
-- Feature extraction for respiratory risk signals  
+- 🔒 **100% local inference**
+- 🧠 **Multimodal AI (text + image + audio)**
+- 🚑 **Urgency-focused triage**
+- 🧑‍⚕️ **Clinician-friendly outputs**
+- ⚡ **Fast, offline-ready workflow**
+
+This project demonstrates **real AI system engineering**, not just model demos.
+
+---
+
+## ✨ Key Features
+
+### 🧾 Symptom Intake
+- Free-text patient symptoms & medical history
+- Supports duration, severity, and context
+
+### 🖼️ Medical Image Processing (Optional)
+- Upload images of rashes or wounds
+- Local image preprocessing pipeline
+
+### 🎙️ Cough Audio Analysis (Optional)
+- Browser-based audio recording
+- Feature extraction for respiratory risk signals
 
 ### 🧠 AI-Powered Triage Scoring
-Combines **text + image + audio** to produce:
-- **Urgency level** (Low / Medium / High)  
-- **Risk summary**  
-- **Actionable recommendations**  
+- Combines **text, image, and audio signals**
+- Outputs:
+  - **Urgency level** (Low / Medium / High)
+  - **Risk summary**
+  - **Actionable recommendation**
 
-### 🔐 Privacy by Design
-- No cloud services  
-- No external APIs  
-- Suitable for **air-gapped medical environments**  
+### 🔐 Privacy-First Architecture
+- No cloud services
+- No third-party APIs
+- Suitable for **air-gapped clinical environments**
+
+---
+
+## 🧩 Tech Stack
+
+**Frontend**
+- Next.js (TypeScript)
+- Modular React components
+- Medical-grade UI
+
+**Backend**
+- Python + FastAPI
+- Clean API architecture
+
+**AI / ML**
+- PyTorch (image processing)
+- Librosa (audio feature extraction)
+- Local LLM interface (pluggable)
+- Vector database for offline medical knowledge
 
 ---
 
-## 🧩 Tech Stack 
-
-### Frontend
-- Next.js (TypeScript)  
-- Modular React components  
-- Medical-grade UI  
-
-### Backend
-- Python + FastAPI  
-- Clean API architecture  
-- Pydantic validation  
-
-### AI / ML
-- PyTorch (image processing)  
-- Librosa (audio feature extraction)  
-- Local LLM interface (pluggable)  
-- Vector database for medical knowledge retrieval  
-
----
-## 📂 Architecture Snapshot
+## 🧠 System Architecture
 
 ```
-Frontend (Next.js)
-        ↓
+Next.js Frontend
+     ↓
 FastAPI Backend
-        ↓
-Image | Audio | Text Processors
-        ↓
-Triage Scoring + Local LLM
-        ↓
+     ↓
+Text | Image | Audio Processors
+     ↓
+Triage Scoring + Local Reasoning
+     ↓
 Structured Clinical Output
 ```
 
@@ -89,46 +94,57 @@ Structured Clinical Output
 ```json
 {
   "urgency_level": "HIGH",
-  "risk_summary": "Symptoms and cough audio suggest elevated respiratory risk",
+  "risk_summary": "Symptoms and cough analysis indicate elevated respiratory risk",
   "recommended_action": "Immediate referral to higher-level care"
 }
 ```
 
 ---
 
-## 🔐 Privacy & Ethics
+## 🚀 Running the Project
 
-- No patient data leaves the device  
-- No telemetry  
-- Designed as **Clinical Decision Support**  
-- **Human-in-the-loop** by default  
+### Requirements
+- Node.js 18+
+- Python 3.10+
+- Local machine (CPU-only supported)
+
+### Backend
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+### Frontend
+```bash
+cd app
+npm install
+npm run dev
+```
 
 ---
 
-## 🧠 What This Project Demonstrates
+## 🔐 Privacy, Safety & Ethics
 
-✔ Full-stack AI system design  
-✔ Multimodal ML pipelines  
-✔ Privacy-first architecture  
-✔ Real healthcare use case  
-✔ Production-oriented backend structure  
-
----
+- No patient data leaves the device
+- No telemetry or tracking
+- Human-in-the-loop by design
+- Intended as **Clinical Decision Support**, not diagnosis
 
 ## 🛣️ Roadmap
 
-- Offline quantized LLM integration  
-- Multilingual support  
-- Confidence calibration  
-- Encrypted patient history  
-- Clinical validation  
+- Quantized offline LLM reasoning
+- Multilingual UI
+- Confidence calibration
+- Encrypted local patient history
+- Clinical validation studies
 
 ---
 
 ## 📜 License
 
-MIT License  
+MIT License
 
 ---
 
-⭐ If you find this project valuable, consider **starring the repository**.
+⭐ **If you find this project valuable, please consider starring the repository.**
