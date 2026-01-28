@@ -1,12 +1,10 @@
 'use client';
 
 import { Activity } from 'lucide-react';
-import { t } from '@/lib/i18n';
 import { useLanguage } from '@/lib/language-context';
 
 export function Header() {
-  // Trigger re-render when language changes
-  useLanguage();
+  const { t } = useLanguage();
 
   return (
     <header className="border-b border-border bg-card">

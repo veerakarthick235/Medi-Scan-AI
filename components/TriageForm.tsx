@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Camera, Mic, Upload, X } from 'lucide-react';
-import { t } from '@/lib/i18n';
 import { useLanguage } from '@/lib/language-context';
 
 interface TriageFormProps {
@@ -20,8 +19,7 @@ interface TriageFormProps {
 }
 
 export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
-  // Trigger re-render when language changes
-  useLanguage();
+  const { t } = useLanguage();
   
   const [symptoms, setSymptoms] = useState('');
   const [selectedImage, setSelectedImage] = useState<File | null>(null);

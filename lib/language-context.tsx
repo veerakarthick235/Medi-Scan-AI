@@ -2,10 +2,12 @@
 
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import type { Language } from './i18n';
+import { getTranslations } from './i18n';
 
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
+  t: (path: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -15,13 +17,26 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const setLanguage = useCallback((lang: Language) => {
     setLanguageState(lang);
-    // Also update the i18n module-level state for the t() function
-    const module = require('./i18n');
-    module.setLanguage(lang);
   }, []);
 
+  const t = (path: string): string => {
+    const keys = path.split('.');
+    const translations = getTranslations();
+    let value: any = translations[language];
+
+    for (const key of keys) {
+      if (value && typeof value === 'object' && key in value) {
+        value = value[key];
+      } else {
+        return path;
+      }
+    }
+
+    return typeof value === 'string' ? value : path;
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
