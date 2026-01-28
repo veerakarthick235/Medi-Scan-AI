@@ -388,3 +388,5 @@ export const t = (path: string): string => {
 
   return typeof value === 'string' ? value : path;
 };
+
+export const getTranslations = () => translations;

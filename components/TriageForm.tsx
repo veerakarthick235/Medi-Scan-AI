@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Camera, Mic, Upload, X } from 'lucide-react';
+import { useLanguage } from '@/lib/language-context';
 
 interface TriageFormProps {
   onSubmit: (data: {
@@ -18,6 +19,8 @@ interface TriageFormProps {
 }
 
 export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
+  const { t } = useLanguage();
+  
   const [symptoms, setSymptoms] = useState('');
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [selectedAudio, setSelectedAudio] = useState<File | null>(null);
@@ -88,7 +91,7 @@ export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!symptoms.trim()) {
-      alert('Please enter patient symptoms');
+      alert(t('messages.error'));
       return;
     }
     onSubmit({
@@ -103,7 +106,7 @@ export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
       {/* Symptoms Input */}
       <Card className="p-6">
         <h2 className="mb-4 text-lg font-semibold text-foreground">
-          Patient Symptoms
+          {t('form.symptoms')}
         </h2>
         <label className="block text-sm font-medium text-foreground mb-2">
           Describe patient symptoms and medical history
@@ -111,7 +114,7 @@ export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
         <Textarea
           value={symptoms}
           onChange={(e) => setSymptoms(e.target.value)}
-          placeholder="Enter symptoms, duration, severity, and relevant medical history. e.g., 'Patient presents with persistent cough for 3 weeks, slight fever, fatigue...'"
+          placeholder={t('form.symptomsPlaceholder')}
           className="min-h-32"
           disabled={isLoading}
         />
@@ -120,7 +123,7 @@ export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
       {/* Image Upload */}
       <Card className="p-6">
         <h2 className="mb-4 text-lg font-semibold text-foreground">
-          Medical Images (Optional)
+          {t('form.imageLabel')}
         </h2>
         <p className="mb-4 text-sm text-muted-foreground">
           Upload images of wounds, rashes, or other visible symptoms
@@ -174,7 +177,7 @@ export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
       {/* Audio Input */}
       <Card className="p-6">
         <h2 className="mb-4 text-lg font-semibold text-foreground">
-          Audio Recording (Optional)
+          {t('form.audioLabel')}
         </h2>
         <p className="mb-4 text-sm text-muted-foreground">
           Record cough or other respiratory sounds for analysis
@@ -220,7 +223,7 @@ export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
                 variant="destructive"
                 className="flex-1"
               >
-                Stop Recording
+                {t('form.stopButton')}
               </Button>
             ) : (
               <Button
@@ -231,7 +234,7 @@ export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
                 className="flex-1"
               >
                 <Mic className="mr-2 h-4 w-4" />
-                Record Audio
+                {t('form.recordButton')}
               </Button>
             )}
 
@@ -243,7 +246,7 @@ export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
               className="flex-1"
             >
               <Upload className="mr-2 h-4 w-4" />
-              Upload Audio
+              {t('form.uploadImage')}
             </Button>
           </div>
         </div>
@@ -264,7 +267,7 @@ export function TriageForm({ onSubmit, isLoading }: TriageFormProps) {
         disabled={isLoading || !symptoms.trim()}
         className="w-full bg-primary py-6 text-lg font-semibold"
       >
-        {isLoading ? 'Analyzing...' : 'Perform Triage Assessment'}
+        {isLoading ? t('messages.loading') : t('form.submitButton')}
       </Button>
 
       <p className="text-center text-xs text-muted-foreground">

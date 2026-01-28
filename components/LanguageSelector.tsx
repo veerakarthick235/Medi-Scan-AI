@@ -1,11 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { getAvailableLanguages, setLanguage, type Language } from '@/lib/i18n';
+import { getAvailableLanguages, type Language } from '@/lib/i18n';
+import { useLanguage } from '@/lib/language-context';
 
 export function LanguageSelector() {
-  const [currentLang, setCurrentLang] = useState<Language>('en');
+  const { language, setLanguage } = useLanguage();
   const languages: Record<Language, string> = {
     en: 'English',
     es: 'Español',
@@ -16,9 +16,6 @@ export function LanguageSelector() {
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang);
-    setCurrentLang(lang);
-    // Trigger a re-render by dispatching a custom event
-    window.dispatchEvent(new CustomEvent('languageChanged', { detail: lang }));
   };
 
   return (
@@ -27,7 +24,7 @@ export function LanguageSelector() {
         <Button
           key={lang}
           onClick={() => handleLanguageChange(lang)}
-          variant={currentLang === lang ? 'default' : 'outline'}
+          variant={language === lang ? 'default' : 'outline'}
           size="sm"
           className="text-xs"
         >

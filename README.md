@@ -75,7 +75,7 @@ This project demonstrates **real AI system engineering**, not just model demos.
 
 ## 🧠 System Architecture
 
-```
+\`\`\`
 Next.js Frontend
      ↓
 FastAPI Backend
@@ -85,19 +85,19 @@ Text | Image | Audio Processors
 Triage Scoring + Local Reasoning
      ↓
 Structured Clinical Output
-```
+\`\`\`
 
 ---
 
 ## 📊 Example Output
 
-```json
+\`\`\`json
 {
   "urgency_level": "HIGH",
   "risk_summary": "Symptoms and cough analysis indicate elevated respiratory risk",
   "recommended_action": "Immediate referral to higher-level care"
 }
-```
+\`\`\`
 
 ---
 
@@ -109,18 +109,18 @@ Structured Clinical Output
 - Local machine (CPU-only supported)
 
 ### Backend
-```bash
+\`\`\`bash
 cd backend
 pip install -r requirements.txt
 uvicorn app.main:app --reload
-```
+\`\`\`
 
 ### Frontend
-```bash
+\`\`\`bash
 cd app
 npm install
 npm run dev
-```
+\`\`\`
 
 ---
 

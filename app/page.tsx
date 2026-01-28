@@ -8,6 +8,7 @@ import { Header } from '@/components/Header';
 import { MedicationChecker } from '@/components/MedicationChecker';
 import { AnalyticsDashboard } from '@/components/AnalyticsDashboard';
 import { LanguageSelector } from '@/components/LanguageSelector';
+import { LanguageProvider } from '@/lib/language-context';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { saveAssessment, initDB } from '@/lib/db';
 import type { Assessment } from '@/lib/db';
@@ -111,9 +112,10 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="container mx-auto px-4 py-8">
+    <LanguageProvider>
+      <div className="min-h-screen bg-background">
+        <Header />
+        <main className="container mx-auto px-4 py-8">
         {error && (
           <div className="mb-6 rounded-lg border border-red-300 bg-red-50 p-4">
             <p className="text-sm font-medium text-red-900">{error}</p>
@@ -166,7 +168,8 @@ export default function Home() {
             <AnalyticsDashboard />
           </TabsContent>
         </Tabs>
-      </main>
-    </div>
+        </main>
+      </div>
+    </LanguageProvider>
   );
 }

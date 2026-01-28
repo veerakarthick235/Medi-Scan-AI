@@ -1,6 +1,11 @@
+'use client';
+
 import { Activity } from 'lucide-react';
+import { useLanguage } from '@/lib/language-context';
 
 export function Header() {
+  const { t } = useLanguage();
+
   return (
     <header className="border-b border-border bg-card">
       <div className="container mx-auto px-4 py-6">
@@ -10,9 +15,9 @@ export function Header() {
               <Activity className="h-6 w-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-foreground">MediScan AI</h1>
+              <h1 className="text-2xl font-bold text-foreground">{t('header.title')}</h1>
               <p className="text-sm text-muted-foreground">
-                Privacy-First Rural Clinic Triage
+                {t('header.subtitle')}
               </p>
             </div>
           </div>
